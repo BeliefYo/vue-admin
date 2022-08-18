@@ -7,6 +7,7 @@ declare module '*.bmp'
 declare module '*.tiff'
 
 declare module '*.js'
+declare module 'js-cookie'
 
 declare module '*.vue' {
   import { DefineComponent } from 'vue'

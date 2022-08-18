@@ -47,55 +47,20 @@ import { useRouter } from 'vue-router'
 import store from '@/store'
 const router = useRouter()
 const data = reactive({
-  menu: [
-    {
-      path: '/',
-      name: 'home',
-      label: '首页',
-      icon: 's-home',
-      url: 'Home/Home'
-    },
-    {
-      path: '/mall',
-      name: 'mall',
-      label: '商品管理',
-      icon: 'video-play',
-      url: 'MallManage/MallManage'
-    },
-    {
-      path: '/user',
-      name: 'user',
-      label: '用户管理',
-      icon: 'user',
-      url: 'UserManage/UserManage'
-    },
-    {
-      label: '其他',
-      icon: 'location',
-      children: [
-        {
-          path: '/page1',
-          name: 'page1',
-          label: '页面1',
-          icon: 'setting',
-          url: 'Other/PageOne'
-        },
-        {
-          path: '/page2',
-          name: 'page2',
-          label: '页面2',
-          icon: 'setting',
-          url: 'Other/PageTwo'
-        }
-      ]
-    }
-  ]
+  menu: []
 })
+const asyncMenu = computed(() => store.state.tab.menu)
 const noChildren = computed(() => {
-  return data.menu.filter(item => !item.children)
+  return (
+    asyncMenu.value.length > 0 &&
+    asyncMenu.value.filter((item: any) => !item.children)
+  )
 })
 const hasChildren = computed(() => {
-  return data.menu.filter(item => item.children)
+  return (
+    asyncMenu.value.length > 0 &&
+    asyncMenu.value.filter((item: any) => item.children)
+  )
 })
 const isCollapse = computed(() => store.state.tab.isCollapse)
 

@@ -17,6 +17,8 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import { useState } from '../hooks/useState'
+import { useStore } from 'vuex'
+const store = useStore()
 const router = useRouter()
 const stateData = useState({
   tags: (state: any) => state.tab.tabList
@@ -29,7 +31,20 @@ const changeMenu = (item: any) => {
   })
 }
 const handleClose = (item: any, i: number) => {
-  console.log(item, i)
+  const length = tags.value.length - 1
+  store.commit('tab/closeTag', item)
+  if (item.name !== router.currentRoute.value.name) {
+    return
+  }
+  if (i === length) {
+    router.push({
+      name: tags.value[i - 1].name
+    })
+  } else {
+    router.push({
+      name: tags.value[i].name
+    })
+  }
 }
 </script>
 <style lang="less" scoped>

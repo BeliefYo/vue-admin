@@ -7,7 +7,6 @@
         size="small"
         @click="handleMenu"
       ></el-button>
-      <!-- <h3 style="color: #fff">首页</h3> -->
       <el-breadcrumb separator="/">
         <el-breadcrumb-item
           v-for="item in tags"
@@ -28,7 +27,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item>退出</el-dropdown-item>
+            <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -37,6 +36,7 @@
 </template>
 
 <script lang="ts" setup>
+import router from '@/router'
 import { Grid } from '@element-plus/icons-vue'
 import { reactive } from 'vue'
 import { useStore } from 'vuex'
@@ -51,6 +51,14 @@ const handleMenu = () => {
 const stateData = useState({
   tags: (state: any) => state.tab.tabList
 })
+
+const logout = () => {
+  store.commit('clearToken')
+  store.commit('tab/clearMenu')
+  router.push({
+    path: '/login'
+  })
+}
 const { tags } = stateData
 
 const { imgUrl } = data

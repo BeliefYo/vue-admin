@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
 
 declare interface State {
   tab: Tab
+  user: User
 }
 
 // declare interface App {
