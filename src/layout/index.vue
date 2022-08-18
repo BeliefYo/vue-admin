@@ -7,6 +7,7 @@
       <el-header>
         <Header />
       </el-header>
+      <Tag />
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -15,12 +16,13 @@
 </template>
 
 <script lang="ts" setup>
-import Aside from "./Aside/index.vue";
-import Header from "./Header/index.vue";
+import Aside from './Aside/index.vue'
+import Header from './Header/index.vue'
+import Tag from '../components/Tag.vue'
 </script>
 <style lang="less" scoped>
 .el-header {
-  background-color: #333;
+  background-color: #eee;
 }
 .el-main {
   padding-top: 0;

@@ -1,12 +1,26 @@
 <template>
   <header>
     <div class="l-content">
-      <el-button type="primary" :icon="Grid" size="mini"></el-button>
-      <h3 style="color: #fff">首页</h3>
+      <el-button
+        type="primary"
+        :icon="Grid"
+        size="small"
+        @click="handleMenu"
+      ></el-button>
+      <!-- <h3 style="color: #fff">首页</h3> -->
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item
+          v-for="item in tags"
+          :key="item.path"
+          :to="{ path: item.path }"
+        >
+          {{ item.label }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
     <div class="r-content">
       <el-dropdown trigger="click">
-        <span class="el-dropdown-link" size="mini">
+        <span class="el-dropdown-link" size="small">
           <span>
             <img :src="imgUrl" class="user" />
           </span>
@@ -23,12 +37,23 @@
 </template>
 
 <script lang="ts" setup>
-import { Grid } from "@element-plus/icons-vue";
-import { reactive } from "vue";
+import { Grid } from '@element-plus/icons-vue'
+import { reactive } from 'vue'
+import { useStore } from 'vuex'
+import { useState } from '../../hooks/useState'
+const store = useStore()
 const data = reactive({
-  imgUrl: require("../../assets/images/2.png"),
-});
-const { imgUrl } = data;
+  imgUrl: require('../../assets/images/2.png')
+})
+const handleMenu = () => {
+  store.commit('tab/collapseMenu')
+}
+const stateData = useState({
+  tags: (state: any) => state.tab.tabList
+})
+const { tags } = stateData
+
+const { imgUrl } = data
 </script>
 <style lang="less" scoped>
 header {
